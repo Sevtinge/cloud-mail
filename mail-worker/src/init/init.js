@@ -35,18 +35,18 @@ const dbInit = {
 		await this.v3_3DB(c);
 		await this.v3_4DB(c);
 		await this.v3_5DB(c);
-		await this.v3_5_1DB(c);
 		await this.v3_6DB(c);
+		await this.v3_7DB(c);
 		await settingService.refresh(c);
 		return c.text('success');
 	},
 
-	async v3_6DB(c) {
+	async v3_7DB(c) {
 		// Web Push：设备订阅表 + VAPID 密钥表。没执行过这一步也没关系，首次开启通知时会自动建表。
 		await pushService.createTables(c);
 	},
 
-	async v3_5_1DB(c) {
+	async v3_6DB(c) {
 		try {
 			await c.env.db.prepare(`UPDATE setting SET auto_refresh = 2 WHERE auto_refresh != 1`).run(); // 1 关闭，其余改为 2 开启
 		} catch (e) {
